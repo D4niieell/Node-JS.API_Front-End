@@ -1,0 +1,122 @@
+Explicação detalhada do CSS
+
+1. Reset global (*, *::before, *::after)
+css*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+Aplica um reset em todos os elementos da página, incluindo os pseudoelementos ::before e ::after:
+
+Remove o padding e margin padrão que os navegadores aplicam (ex: <h1>, <p>, <body>)
+box-sizing: border-box faz com que padding e border sejam incluídos no tamanho total do elemento, evitando cálculos extras de largura/altura
+
+2. .resultado — Contêiner da tabela de resultados
+css.resultado {
+    margin: 0 auto;      - Centraliza horizontalmente 
+    width: 90%;          - Ocupa 90% da largura do pai 
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;  - Filhos empilhados verticalmente 
+    border: 1px solid rgb(222, 222, 222);
+}
+Cria um contêiner centralizado com filhos organizados em coluna (como linhas de uma tabela), com borda cinza clara ao redor.
+
+3. .row — Linha da tabela
+css.row {
+    display: grid;
+    grid-template-columns: 25% 25% 10% 10% 5% 15% 10%;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgb(222, 222, 222);
+}
+Cada linha é um grid de 7 colunas com larguras proporcionais específicas (somam 100%). 
+Tem separador inferior entre as linhas. Ideal para exibir dados tabulares como nome, CPF, idade, etc.
+
+4. .col — Célula da tabela
+css.col {
+    padding: 0 0.3rem;
+    text-overflow: ellipsis;  - Adiciona "..." quando o texto não cabe 
+    overflow: hidden;         - Esconde o excesso de texto 
+    white-space: nowrap;      - Impede quebra de linha 
+}
+Garante que textos longos não quebrem o layout — o conteúdo é cortado com reticências (...).
+
+5. .modalFormCadastro — Overlay do modal
+css.modalFormCadastro {
+    position: fixed;       - Fica fixo na tela, mesmo com scroll 
+    top: 0; left: 0;
+    width: 100%; height: 100vh;  - Cobre a tela toda 
+    background: rgba(6, 6, 6, 0.706);  - Fundo escuro semitransparente 
+    display: flex;
+    justify-content: center;
+    align-items: center;   - Centraliza o form dentro do overlay 
+    backdrop-filter: blur(3px);  - Borra o conteúdo atrás do modal 
+}
+Cria o fundo escuro com blur que aparece quando o modal abre, bloqueando a interação com o restante da página.
+
+6. .modalFormCadastro form — O formulário dentro do modal
+css.modalFormCadastro form {
+    background: rgb(9, 117, 163);  (Azul) 
+    border-radius: 0.5rem;
+    width: 40%;
+    padding: 2rem;
+}
+O card do formulário ocupa 40% da largura da tela, tem fundo azul e bordas arredondadas.
+
+7. .inputGroup — Grupo de campo + label
+css.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0;
+}
+Empilha label e input verticalmente com espaçamento entre eles.
+css.inputGroup input {
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.5rem 1rem; - ⚠️ valor inválido — provavelmente deveria ser só 1rem 
+    padding: 0.5rem;
+    width: 100%;
+    outline: none;  - Remove o contorno azul padrão do browser ao focar 
+}
+
+Atenção!: 
+font-size: 0.5rem 1rem é um valor inválido — font-size aceita apenas um valor. O navegador vai ignorar essa declaração. Provavelmente deveria ser font-size: 1rem.
+
+8. .btnGroup e .btn — Botões
+css.btnGroup {
+    display: flex;
+    gap: 1rem;  - Espaço entre os botões 
+}
+.btn {
+    width: 100%;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.3rem;
+    padding: 0.5rem 0;
+    font-weight: bold;
+}
+Coloca os botões lado a lado com espaço entre eles. Cada botão ocupa toda a largura disponível do seu espaço no flex.
+
+9. Classes de visibilidade do modal
+css.hide        { display: none; }          - Oculta completamente (sem animação)
+
+.hide-modal  {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 350ms ease-in-out, visibility 350ms ease-in-out;
+}
+.show-modal  {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 350ms ease-in-out, visibility 350ms ease-in-out;
+}
+
+Classe - Efeito
+.hide - Oculta instantaneamente (sem transição, tira do fluxo)
+.hide-modal - Torna invisível com animação de fade-out (350ms)
+.show-modal - Exibe com animação de fade-in (350ms)
+
+visibility: 
+hidden (diferente de display: none) ainda ocupa espaço no layout, mas permite a transição suave de opacidade — algo que display não suporta.
+
